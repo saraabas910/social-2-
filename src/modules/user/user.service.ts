@@ -51,6 +51,13 @@ export class UserService {
         );
 
     };
+
+
+    generateUrl= async (file :Partial<Express.Multer.File>, userId:string)=>{
+
+      return await this.cloudProvider.generatePresigneedUrl(file , `users/${userId}`)
+
+    }
 }
 
 export default new UserService();

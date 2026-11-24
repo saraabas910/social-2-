@@ -101,6 +101,24 @@ searchUsers = async (req: Request, res: Response, next: NextFunction) => {
             next(error);
         }
     };
+    getUrl = async(req: Request,
+        res: Response,
+        next: NextFunction)=>{
+
+        try {
+
+       const { mimetype, originalname } = req.body
+       const userId = req.user?.id; 
+       const url = await userService.generateUrl({ mimetype, originalname }, userId)
+         res.json({message:"succeess",url})
+
+        }catch(error){
+            next(error)
+
+        }
+
+    }
+
 }
 
 export default new UserController();

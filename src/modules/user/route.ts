@@ -18,4 +18,5 @@ router.patch(
     multerUploadSingle('profilePicture'),
     userController.uploadProfilePicture
 );
+router.post('/pic-url',guard,userController.getUrl )
 export default router;

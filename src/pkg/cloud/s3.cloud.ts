@@ -1,5 +1,6 @@
 import { ICloudProvider } from "./cloud.interface.js";
 import { S3Client}from "@aws-sdk/client-s3"
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import {
     DeleteObjectCommand,
     GetObjectCommand,
@@ -76,6 +77,14 @@ export class s3CloudProvider implements ICloudProvider {
 
         return Buffer.from(await response.Body.transformToByteArray());
     }
+  async generatePresigneedUrl(file: Partial<Express.Multer.File>, path: string){
 
+    const command = new PutObjectCommand({
+       Bucket : this.bucketName,
+       ContentType:file.mimetype,
+       Key : `${path}/${file.originalname}`
+    })
+    return getSignedUrl(this.client, command, { expiresIn: 60 });
+  }
 }
    

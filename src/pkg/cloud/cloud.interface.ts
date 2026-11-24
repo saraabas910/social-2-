@@ -8,4 +8,6 @@ export interface ICloudProvider{
 
 
     getfile(key:any):Promise<Buffer>
+
+    generatePresigneedUrl(file: Partial<Express.Multer.File>, path: string):Promise<string>
 }

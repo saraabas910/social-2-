@@ -5,9 +5,9 @@ export abstract class AbstractRepository<T> {
 
     constructor(private readonly model: Model<T>) {}
 
-    async create(data: T) {
-        return this.model.create(data);
-    }
+   async create(data: Partial<T>) {
+    return this.model.create(data);
+}
 
     async update(
         filter: QueryFilter<T>,
